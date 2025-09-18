@@ -69,7 +69,7 @@ class RAGSystem:
         """Get or create a ChromaDB collection."""
         try:
             return self.chroma_client.get_collection(name)
-        except ValueError:
+        except (ValueError, Exception):  # Handle both ValueError and NotFoundError
             return self.chroma_client.create_collection(
                 name=name,
                 metadata={"description": description}
